@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FarmaciesWebApp.Models;
+using FarmaciesWebApp.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,15 @@ namespace FarmaciesWebApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly UnitOfWork _unitOfWork;
+        public HomeController()
+        {
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
+        }
         public ActionResult Index()
         {
-            return View();
+            var farmacies = _unitOfWork.Farmacies.GetAllFarmacies();
+            return View("Farmacies", farmacies);
         }
 
         public ActionResult About()

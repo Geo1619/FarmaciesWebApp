@@ -25,6 +25,10 @@ namespace FarmaciesWebApp.Controllers
             var farmacies = _unitOfWork.Farmacies.GetAllFarmacies();
             return View(farmacies);
         }
+        public ActionResult Create()
+        {
+            return View();
+        }
 
     }
 }

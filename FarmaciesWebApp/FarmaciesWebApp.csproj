@@ -183,6 +183,10 @@
     <Compile Include="Migrations\202011101458310_PopulateLocationsTable.designer.cs">
       <DependentUpon>202011101458310_PopulateLocationsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011102104395_AddedLocationIdFarmacy.cs" />
+    <Compile Include="Migrations\202011102104395_AddedLocationIdFarmacy.designer.cs">
+      <DependentUpon>202011102104395_AddedLocationIdFarmacy.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Farmacy.cs" />
@@ -251,9 +255,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\Farmacies.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Farmacy\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -274,6 +280,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011101458310_PopulateLocationsTable.resx">
       <DependentUpon>202011101458310_PopulateLocationsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011102104395_AddedLocationIdFarmacy.resx">
+      <DependentUpon>202011102104395_AddedLocationIdFarmacy.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

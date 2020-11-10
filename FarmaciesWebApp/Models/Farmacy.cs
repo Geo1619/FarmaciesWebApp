@@ -15,8 +15,9 @@ namespace FarmaciesWebApp.Models
         public string Name { get; set; }
         public string Address { get; set; }
         public short PostalCode { get; set; }
-        [Required]
         public Location Location { get; set; }
+        [Required]
+        public int LocationId { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
     }

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<FarmaciesWebApp.Models.Farmacy>
+
+@{
+    ViewBag.Title = "Farmacies";
+}
+
+<h2>Farmacies</h2>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model =>model.Name)</th>
+            <th>@Html.DisplayNameFor(model =>model.Address)</th>
+            <th>@Html.DisplayNameFor(model =>model.Location.Name)</th>
+            <th>@Html.DisplayNameFor(model =>model.PostalCode)</th>
+            <th>@Html.DisplayNameFor(model =>model.PhoneNumber)</th>
+            <th>@Html.DisplayNameFor(model =>model.Email)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var farmacy in Model)
+        {
+        <tr>
+            <td>@Html.DisplayFor(x=> farmacy.Name)</td>
+            <td>@Html.DisplayFor(x=> farmacy.Address)</td>
+            <td>@Html.DisplayFor(x=> farmacy.Location.Name)</td>
+            <td>@Html.DisplayFor(x=> farmacy.PostalCode)</td>
+            <td>@Html.DisplayFor(x=> farmacy.PhoneNumber)</td>
+            <td>@Html.DisplayFor(x=> farmacy.Email)</td>
+            <td>
+                @Html.ActionLink("Edit","Edit", new { id = farmacy.Id}, new { @class="btn btn-default"})
+                @Html.ActionLink("Details","Details", new { id = farmacy.Id}, new { @class="btn btn-default"})
+                @Html.ActionLink("Delete","Delete", new { id = farmacy.Id}, new { @class="btn btn-danger"})
+            </td>
+        </tr>
+        }
+        
+    </tbody>
+</table>
