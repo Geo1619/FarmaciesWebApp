@@ -10,10 +10,12 @@ namespace FarmaciesWebApp.Repositories
     {
         private readonly ApplicationDbContext _context;
         public FarmacyRepository Farmacies { get; private set; }
+        public LocationRepository Locations { get; private set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
             Farmacies = new FarmacyRepository(context);
+            Locations = new LocationRepository(context);
         }
         public void Complete()
         {

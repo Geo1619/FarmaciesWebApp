@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using FarmaciesWebApp.Models;
 using FarmaciesWebApp.Repositories;
+using FarmaciesWebApp.ViewModels;
 
 namespace FarmaciesWebApp.Controllers
 {
@@ -27,7 +28,11 @@ namespace FarmaciesWebApp.Controllers
         }
         public ActionResult Create()
         {
-            return View();
+            var viewModel = new FarmacyFormViewModel
+            {
+                Locations = _unitOfWork.Locations.GetAllLocations()
+            };
+            return View(viewModel);
         }
 
     }
