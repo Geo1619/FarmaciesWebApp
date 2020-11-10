@@ -169,6 +169,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FarmacyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -178,12 +179,18 @@
     <Compile Include="Migrations\202011101435178_InitialModel.designer.cs">
       <DependentUpon>202011101435178_InitialModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011101458310_PopulateLocationsTable.cs" />
+    <Compile Include="Migrations\202011101458310_PopulateLocationsTable.designer.cs">
+      <DependentUpon>202011101458310_PopulateLocationsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Farmacy.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Repositories\FarmacyRepository.cs" />
+    <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -264,6 +271,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202011101435178_InitialModel.resx">
       <DependentUpon>202011101435178_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011101458310_PopulateLocationsTable.resx">
+      <DependentUpon>202011101458310_PopulateLocationsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
