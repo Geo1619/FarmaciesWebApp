@@ -51,6 +51,11 @@ namespace FarmaciesWebApp.Controllers
             return RedirectToAction("Index", "Home");
             
         }
+        [HttpPost]
+        public ActionResult Search(FarmacyViewModel viewModel)
+        {
+            return RedirectToAction("Index", "Home", new { query = viewModel.SearchString });
+        }
 
     }
 }

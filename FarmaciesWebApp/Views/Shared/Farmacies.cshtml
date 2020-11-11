@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FarmaciesWebApp.Models.Farmacy>
+﻿@model FarmaciesWebApp.ViewModels.FarmacyViewModel
 
 @{
     ViewBag.Title = "Farmacies";
@@ -6,20 +6,30 @@
 
 <h2>Farmacies</h2>
 
-<table class="table">
+@using (Html.BeginForm("Search", "Farmacy"))
+{
+<div class="input-group">
+    <span class="input-group-btn">
+        <button class="btn btn-primary">Go</button>
+    </span>
+    @Html.TextBoxFor(model => model.SearchString)
+</div>
+}
 
+<table class="table">
+   
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model =>model.Name)</th>
-            <th>@Html.DisplayNameFor(model =>model.Address)</th>
-            <th>@Html.DisplayNameFor(model =>model.Location.Name)</th>
-            <th>@Html.DisplayNameFor(model =>model.PostalCode)</th>
-            <th>@Html.DisplayNameFor(model =>model.PhoneNumber)</th>
-            <th>@Html.DisplayNameFor(model =>model.Email)</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Location</th>
+            <th>Postal Code</th>
+            <th>Phone Number</th>
+            <th>Email</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var farmacy in Model)
+        @foreach (var farmacy in Model.Farmacies)
         {
         <tr>
             <td>@Html.DisplayFor(x=> farmacy.Name)</td>

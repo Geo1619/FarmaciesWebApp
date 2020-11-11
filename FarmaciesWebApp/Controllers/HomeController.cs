@@ -1,5 +1,6 @@
 ﻿using FarmaciesWebApp.Models;
 using FarmaciesWebApp.Repositories;
+using FarmaciesWebApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,22 @@ namespace FarmaciesWebApp.Controllers
         {
             _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
-        public ActionResult Index()
+        public ActionResult Index(string query=null)
         {
             var farmacies = _unitOfWork.Farmacies.GetAllFarmacies();
-            return View("Farmacies", farmacies);
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                farmacies = farmacies
+                    .Where(f => f.Name.Contains(query) ||
+                    f.Location.Name.Contains(query));
+            }
+            var viewModel = new FarmacyViewModel
+            {
+                Farmacies = farmacies,
+                SearchString = query
+            };
+
+            return View("Farmacies", viewModel);
         }
 
         public ActionResult About()
