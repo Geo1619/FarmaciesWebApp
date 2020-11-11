@@ -25,6 +25,11 @@ namespace FarmaciesWebApp.Repositories
                 .Where(f => f.Location.Id == id)
                 .Include(f => f.Location).ToList();
         }
+        public Farmacy GetFarmacy(int id)
+        {
+            return _context.Farmacies
+                .SingleOrDefault(f => f.Id == id);
+        }
         public void Add(Farmacy farmacy)
         {
             _context.Farmacies.Add(farmacy);

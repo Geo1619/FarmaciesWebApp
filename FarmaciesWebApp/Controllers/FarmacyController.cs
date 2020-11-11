@@ -19,6 +19,55 @@ namespace FarmaciesWebApp.Controllers
         {
             _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id)
+        {
+            var farmacy = _unitOfWork.Farmacies.GetFarmacy(id);
+            if (farmacy is null)
+                return HttpNotFound();
+
+            _unitOfWork.Farmacies.Remove(farmacy);
+            _unitOfWork.Complete();
+            return RedirectToAction("Index", "Home");
+        }
+        public ActionResult Edit(int id)
+        {
+            var farmacy = _unitOfWork.Farmacies.GetFarmacy(id);
+            if (farmacy is null)
+                return HttpNotFound();
+
+            var viewModel = new FarmacyFormViewModel
+            {
+                Id = farmacy.Id,
+                Name = farmacy.Name,
+                Address = farmacy.Address,
+                Email = farmacy.Email,
+                LocationId = farmacy.LocationId,
+                PhoneNumber = farmacy.PhoneNumber,
+                PostalCode = farmacy.PostalCode,
+                Locations = _unitOfWork.Locations.GetAllLocations()
+            };
+            return View(viewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(FarmacyFormViewModel viewModel)
+        {
+            if(!ModelState.IsValid)
+            {
+
+                viewModel.Locations = _unitOfWork.Locations.GetAllLocations();
+                return View("Edit", viewModel);
+            }
+            var farmacy = _unitOfWork.Farmacies.GetFarmacy(viewModel.Id);
+            farmacy.Modify(viewModel.Name,viewModel.Address,
+                viewModel.PostalCode,viewModel.LocationId,
+                viewModel.PhoneNumber,viewModel.Email);
+            _unitOfWork.Complete();
+
+            return RedirectToAction("Index", "Home");
+        }
 
         public ActionResult Create()
         {
@@ -51,6 +100,7 @@ namespace FarmaciesWebApp.Controllers
             return RedirectToAction("Index", "Home");
             
         }
+        
         [HttpPost]
         public ActionResult Search(FarmacyViewModel viewModel)
         {

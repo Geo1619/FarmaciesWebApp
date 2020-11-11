@@ -20,5 +20,15 @@ namespace FarmaciesWebApp.Models
         public int LocationId { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+
+        public void Modify(string name, string address, int postalCode, int locationId, string phoneNumber, string Email)
+        {
+            Name = name;
+            Address = address;
+            PostalCode = postalCode;
+            LocationId = locationId;
+            PhoneNumber = phoneNumber;
+                
+        }
     }
 }

@@ -14,7 +14,7 @@
         <span class="input-group-btn">
             <button class="btn btn-primary">Go</button>
         </span>
-        @Html.TextBoxFor(model => model.SearchString,new {@class="form-control" })
+        @Html.TextBoxFor(model => model.SearchString, new { @class = "form-control" })
     </div>
 }
 
@@ -47,9 +47,14 @@ Page @(Model.Farmacies.PageCount < Model.Farmacies.PageNumber ? 0 : Model.Farmac
                 <td>@Html.DisplayFor(x => farmacy.PhoneNumber)</td>
                 <td>@Html.DisplayFor(x => farmacy.Email)</td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = farmacy.Id }, new { @class = "btn btn-default" })
-                    @Html.ActionLink("Details", "Details", new { id = farmacy.Id }, new { @class = "btn btn-default" })
-                    @Html.ActionLink("Delete", "Delete", new { id = farmacy.Id }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Edit", "Edit", "Farmacy", new { id = farmacy.Id }, new { @class = "btn btn-success" })
+                    @using (Html.BeginForm("Delete", "Farmacy",new { id = farmacy.Id}))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(x => farmacy.Id)
+                        <input type="submit" class="btn btn-danger" value="Delete" onclick="alert('Are you sure you want to delete @Html.DisplayFor(x => farmacy.Name)?'"/>
+                    }
+
                 </td>
             </tr>
         }
