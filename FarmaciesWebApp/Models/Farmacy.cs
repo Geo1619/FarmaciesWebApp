@@ -14,7 +14,7 @@ namespace FarmaciesWebApp.Models
         [StringLength(maximumLength:255,MinimumLength =2,ErrorMessage ="Please type a valid Name")]
         public string Name { get; set; }
         public string Address { get; set; }
-        public short PostalCode { get; set; }
+        public int PostalCode { get; set; }
         public Location Location { get; set; }
         [Required]
         public int LocationId { get; set; }

@@ -20,12 +20,6 @@ namespace FarmaciesWebApp.Controllers
             _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
-        // GET: Farmacy
-        public ActionResult Index()
-        {
-            var farmacies = _unitOfWork.Farmacies.GetAllFarmacies();
-            return View(farmacies);
-        }
         public ActionResult Create()
         {
             var viewModel = new FarmacyFormViewModel
@@ -33,6 +27,29 @@ namespace FarmaciesWebApp.Controllers
                 Locations = _unitOfWork.Locations.GetAllLocations()
             };
             return View(viewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(FarmacyFormViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Locations = _unitOfWork.Locations.GetAllLocations();
+                return View("Create", viewModel);
+            }
+            var farmacy = new Farmacy
+            {
+                Name = viewModel.Name,
+                Address = viewModel.Address,
+                Email = viewModel.Email,
+                LocationId = viewModel.LocationId,
+                PhoneNumber = viewModel.PhoneNumber,
+                PostalCode = viewModel.PostalCode
+            };
+            _unitOfWork.Farmacies.Add(farmacy);
+            _unitOfWork.Complete();
+            return RedirectToAction("Index", "Home");
+            
         }
 
     }
