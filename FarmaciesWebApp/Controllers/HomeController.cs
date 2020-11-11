@@ -4,8 +4,10 @@ using FarmaciesWebApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using PagedList.Mvc;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace FarmaciesWebApp.Controllers
 {
@@ -16,7 +18,7 @@ namespace FarmaciesWebApp.Controllers
         {
             _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
-        public ActionResult Index(string query=null)
+        public ActionResult Index(int? page, string query = null)
         {
             var farmacies = _unitOfWork.Farmacies.GetAllFarmacies();
             if (!string.IsNullOrWhiteSpace(query))
@@ -25,12 +27,15 @@ namespace FarmaciesWebApp.Controllers
                     .Where(f => f.Name.Contains(query) ||
                     f.Location.Name.Contains(query));
             }
+            int pageNumber = page ?? 1;
+            int pageSize = 3;
             var viewModel = new FarmacyViewModel
             {
-                Farmacies = farmacies,
+                Farmacies = farmacies.ToPagedList(pageNumber,pageSize),
                 SearchString = query
             };
-
+            
+            
             return View("Farmacies", viewModel);
         }
 

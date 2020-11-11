@@ -1,4 +1,6 @@
 ﻿@model FarmaciesWebApp.ViewModels.FarmacyViewModel
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Farmacies";
@@ -8,16 +10,22 @@
 
 @using (Html.BeginForm("Search", "Farmacy"))
 {
-<div class="input-group">
-    <span class="input-group-btn">
-        <button class="btn btn-primary">Go</button>
-    </span>
-    @Html.TextBoxFor(model => model.SearchString)
-</div>
+    <div class="input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-primary">Go</button>
+        </span>
+        @Html.TextBoxFor(model => model.SearchString,new {@class="form-control" })
+    </div>
 }
 
+<br />
+Page @(Model.Farmacies.PageCount < Model.Farmacies.PageNumber ? 0 : Model.Farmacies.PageNumber) of @Model.Farmacies.PageCount
+
+@Html.PagedListPager(Model.Farmacies, page => Url.Action("Index",
+    new { page, query = Model.SearchString }))
+
 <table class="table">
-   
+
     <thead>
         <tr>
             <th>Name</th>
@@ -31,20 +39,20 @@
     <tbody>
         @foreach (var farmacy in Model.Farmacies)
         {
-        <tr>
-            <td>@Html.DisplayFor(x=> farmacy.Name)</td>
-            <td>@Html.DisplayFor(x=> farmacy.Address)</td>
-            <td>@Html.DisplayFor(x=> farmacy.Location.Name)</td>
-            <td>@Html.DisplayFor(x=> farmacy.PostalCode)</td>
-            <td>@Html.DisplayFor(x=> farmacy.PhoneNumber)</td>
-            <td>@Html.DisplayFor(x=> farmacy.Email)</td>
-            <td>
-                @Html.ActionLink("Edit","Edit", new { id = farmacy.Id}, new { @class="btn btn-default"})
-                @Html.ActionLink("Details","Details", new { id = farmacy.Id}, new { @class="btn btn-default"})
-                @Html.ActionLink("Delete","Delete", new { id = farmacy.Id}, new { @class="btn btn-danger"})
-            </td>
-        </tr>
+            <tr>
+                <td>@Html.DisplayFor(x => farmacy.Name)</td>
+                <td>@Html.DisplayFor(x => farmacy.Address)</td>
+                <td>@Html.DisplayFor(x => farmacy.Location.Name)</td>
+                <td>@Html.DisplayFor(x => farmacy.PostalCode)</td>
+                <td>@Html.DisplayFor(x => farmacy.PhoneNumber)</td>
+                <td>@Html.DisplayFor(x => farmacy.Email)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = farmacy.Id }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Details", "Details", new { id = farmacy.Id }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Delete", "Delete", new { id = farmacy.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
         }
-        
+
     </tbody>
 </table>
