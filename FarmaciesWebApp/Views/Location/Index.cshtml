@@ -1,0 +1,15 @@
+﻿@model  FarmaciesWebApp.ViewModels.LocationViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Locations</h2>
+
+<div class="list-group">
+    @foreach (var location in Model.Locations)
+    {
+        @Html.ActionLink(location.Name, "Index", "Home", new { locationId = location.Id }, new { @class = "list-group-item" })
+    }
+</div>
+
+

@@ -29,6 +29,9 @@ namespace FarmaciesWebApp.Repositories
         {
             _context.Farmacies.Add(farmacy);
         }
+        public void Remove(Farmacy farmacy) 
+        {
+            _context.Farmacies.Remove(farmacy);
+        }
     }
-    
 }

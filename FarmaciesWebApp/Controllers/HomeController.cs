@@ -18,9 +18,13 @@ namespace FarmaciesWebApp.Controllers
         {
             _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
-        public ActionResult Index(int? page, string query = null)
+        public ActionResult Index(int? locationId, int? page, string query = null)
         {
             var farmacies = _unitOfWork.Farmacies.GetAllFarmacies();
+            if (!(locationId is null))
+            {
+                farmacies = _unitOfWork.Farmacies.GetFarmaciesByLocation((int)locationId);
+            }
             if (!string.IsNullOrWhiteSpace(query))
             {
                 farmacies = farmacies
@@ -29,6 +33,7 @@ namespace FarmaciesWebApp.Controllers
             }
             int pageNumber = page ?? 1;
             int pageSize = 3;
+            
             var viewModel = new FarmacyViewModel
             {
                 Farmacies = farmacies.ToPagedList(pageNumber,pageSize),
